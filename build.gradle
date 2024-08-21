@@ -1,0 +1,86 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.6'
+    id 'io.spring.dependency-management' version '1.1.5'
+}
+
+group = 'com.movie'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-parameters"
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // 데이터베이스 접근을 위한 Spring Data JPA 지원을 제공
+
+    implementation 'org.springframework.boot:spring-boot-starter-security' // 인증 및 권한 부여를 위한 Spring Security 지원을 제공
+
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // 웹 뷰 렌더링을 위한 Thymeleaf 템플릿 엔진을 제공
+
+    implementation 'org.springframework.boot:spring-boot-starter-web' // Spring MVC를 포함한 웹 애플리케이션을 구축하는 데 필요한 필수 종속성을 제공
+
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.1' // Java 객체를 XML로 변환하거나 XML을 Java 객체로 변환하기 위한 Java Architecture for XML Binding (JAXB) API를 제공
+
+    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.1' // JAXB 작업을 실행하기 위한 JAXB 런타임을 제공
+
+    implementation 'jakarta.activation:jakarta.activation-api:2.0.1' // MIME 데이터 유형을 처리하기 위한 JavaBeans Activation Framework (JAF)를 제공
+
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' // OAuth 2.0 클라이언트 기능을 위한 Spring Boot 스타터를 제공
+
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6' // Thymeleaf와 Spring Security 통합을 위한 확장 기능을 제공
+
+    compileOnly 'org.projectlombok:lombok' // 코드 생성 및 자동화된 작업을 위한 Lombok 라이브러리를 컴파일 시에만 포함
+
+    annotationProcessor 'org.projectlombok:lombok' // Lombok의 애너테이션 프로세서를 설정
+
+    implementation 'org.projectlombok:lombok'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools' // 개발 도구(DevTools)를 제공하여 개발 중 재시작 없이 빠른 피드백을 제공
+
+    runtimeOnly 'com.mysql:mysql-connector-j' // MySQL 데이터베이스와의 연결을 위한 MySQL Connector/J 드라이버를 제공
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test' // 단위 테스트와 통합 테스트를 위한 Spring Boot 테스트 지원을 제공
+
+    testImplementation 'org.springframework.security:spring-security-test' // Spring Security 테스트 지원을 제공
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher' // JUnit 플랫폼 런처를 테스트 시에만 포함
+
+    implementation 'org.springframework.security:spring-security-crypto' // 암호화 관련 기능을 제공하는 Spring Security Crypto 모듈을 제공
+
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5' // JSON Web Token (JWT) 생성 및 검증을 위한 JJWT API를 제공
+
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5' // JSON Web Token (JWT) 생성 및 검증을 위한 JJWT 구현을 제공
+
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5' // JSON Web Token (JWT) 생성 및 검증을 위한 Jackson 기반 JJWT 구현을 제공
+
+    implementation 'com.sun.mail:jakarta.mail:2.0.1' // 인증메일관련
+
+    implementation 'org.springframework.boot:spring-boot-starter-mail' // 인증메일관련
+
+
+
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
