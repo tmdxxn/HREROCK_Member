@@ -42,7 +42,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     .memTel("구글사용자") // 기본값
                     .memBirth(LocalDate.now()) // 기본값
                     .memRole(RoleEnum.USER) // 권한 = 회원
-                    .memProfile("1") // 프로필 = 기본프로필
+                    .memProfile("/static/media/Profile_1.e607f6bcdd36d2f31fae912e7a1cb894.svg")
                     .build();
             memberRepository.save(newMember);
         }
