@@ -1,6 +1,14 @@
 package com.movie.rock.member.data;
 
 //import com.movie.rock.board.data.BoardEntity;
+import com.movie.rock.board.data.BoardEntity;
+import com.movie.rock.chat.data.ChatRoomEntity;
+import com.movie.rock.chat.data.MessageEntity;
+import com.movie.rock.chat.data.SessionEntity;
+import com.movie.rock.movie.data.entity.MovieFavorEntity;
+import com.movie.rock.movie.data.entity.MovieReviewEntity;
+import com.movie.rock.movie.data.entity.MovieWatchHistoryEntity;
+import jakarta.mail.Message;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -44,21 +52,53 @@ public class MemberEntity {
     @Column(name = "mem_name", nullable = false)
     private String memName;
 
+    @Column(name = "mem_profile", nullable = false)
+    private String memProfile;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "mem_role", nullable = false)
     private RoleEnum memRole;
 
-    // 1, 2, 3, 4, 5 프로필 사진
-    @Column(name = "mem_profile")
-    private String memProfile;
-
     //DB 및 연관관계 설정
-//    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    public List<BoardEntity> boards = new ArrayList<>();
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<BoardEntity> boards = new ArrayList<>();
+
+    @OneToMany(mappedBy = "sender")     //실시간 챗봇 메시지
+    private List<MessageEntity> message;
+
+    @OneToMany(mappedBy = "member" ,cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<ChatRoomEntity> member = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<SessionEntity> session;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<MovieFavorEntity> favorites;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<MovieReviewEntity> reviews;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<MovieWatchHistoryEntity> movieWatch;
+
 
 
     @Builder
-    public MemberEntity(String memId, String memPassword, String memEmail, String memTel, String memGender, LocalDate memBirth, String memName, RoleEnum memRole, String memProfile) {
+    public MemberEntity(String memId, 
+                        String memPassword, 
+                        String memEmail, 
+                        String memTel, 
+                        String memGender, 
+                        LocalDate memBirth, 
+                        String memName, 
+                        RoleEnum memRole, 
+                        String memProfile, 
+                        List<MessageEntity> message, 
+                        List<ChatRoomEntity> member, 
+                        List<SessionEntity> session, 
+                        List<MovieFavorEntity> favorites,
+                        List<MovieReviewEntity> reviews, 
+                        List<MovieWatchHistoryEntity> movieWatch) {
         this.memId = memId;
         this.memPassword = memPassword;
         this.memEmail = memEmail;
@@ -67,6 +107,12 @@ public class MemberEntity {
         this.memBirth = memBirth;
         this.memName = memName;
         this.memRole = memRole;
+        this.message = message;
+        this.member = member;
+        this.session =session;
+        this.favorites = favorites;
+        this.reviews = reviews;
+        this.movieWatch = movieWatch;
         this.memProfile = memProfile;
     }
 
