@@ -21,18 +21,18 @@ public class MemberDTO {
     private RoleEnum memRole;
     private String memProfile;
 
-//    public MemberEntity toEntity(String encodedPassword) {
-//        return MemberEntity.builder()
-//                .memId(memId)
-//                .memPassword(encodedPassword)
-//                .memEmail(memEmail)
-//                .memTel(memTel)
-//                .memGender(memGender)
-//                .memBirth(memBirth)
-//                .memName(memName)
-//                .memRole(RoleEnum.USER)
-//                .memProfile("1")
-//                .build();
-//    }
+    public MemberEntity toEntity(String encodedPassword) {
+        return MemberEntity.builder()
+                .memId(memId)
+                .memPassword(encodedPassword)
+                .memEmail(memEmail)
+                .memTel(memTel)
+                .memGender(memGender)
+                .memBirth(memBirth)
+                .memName(memName)
+                .memRole(RoleEnum.USER)
+                .memProfile(memProfile)
+                .build();
+    }
 
 }
