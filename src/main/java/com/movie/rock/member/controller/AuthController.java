@@ -100,7 +100,7 @@ public class AuthController {
 
     // 회원가입 - 이메일 인증
     @PostMapping("/verify-email")
-    public ResponseEntity<String> verifyEmail(@RequestParam String email, @RequestParam String verificationCode) {
+    public ResponseEntity<String> verifyEmail(@RequestParam(name = "email") String email, @RequestParam(name = "verificationCode") String verificationCode) {
         boolean verified = memberService.verifySignUpEmail(email, verificationCode);
         if (verified) {
             return ResponseEntity.ok("이메일이 성공적으로 인증되었습니다.");
@@ -146,20 +146,19 @@ public class AuthController {
 
         // 필요한 정보만 포함하는 DTO 생성
         MemberInfoDTO memberInfo = new MemberInfoDTO();
-
         memberInfo.setMemNum(member.getMemNum()); //추가부분
-
-        memberInfo.setMemId(member.getMemId());
-
-        memberInfo.setMemName(member.getMemName());
 
         memberInfo.setMemEmail(member.getMemEmail());
 
+        memberInfo.setMemName(member.getMemName());
+
         memberInfo.setMemGender(member.getMemGender());
+
+        memberInfo.setMemRole(member.getMemRole());
 
         memberInfo.setMemTel(member.getMemTel());
 
-        memberInfo.setMemRole(member.getMemRole());
+        memberInfo.setMemId(member.getMemId());
 
         memberInfo.setMemProfile(member.getMemProfile());
 
@@ -236,7 +235,7 @@ public class AuthController {
 
     // 비밀번호 찾기 - 비밀번호 재설정
     @PostMapping("/reset-password")
-    public ResponseEntity<String> resetPassword(@RequestParam("token") String token, @RequestBody UpdatePasswordDTO updatePasswordDto) {
+    public ResponseEntity<String> resetPassword(@RequestParam(name = "token") String token, @RequestBody UpdatePasswordDTO updatePasswordDto) {
         try {
             memberService.resetPassword(token, updatePasswordDto.getMemNewPassword());
             return ResponseEntity.ok("비밀번호가 성공적으로 변경되었습니다.");
