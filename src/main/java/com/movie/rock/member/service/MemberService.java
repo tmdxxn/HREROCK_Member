@@ -76,7 +76,7 @@ public class MemberService {
                 .memGender(signupRequestDTO.getMemGender())
                 .memBirth(signupRequestDTO.getMemBirth())
                 .memRole(RoleEnum.USER)
-                .memProfile("1")
+                .memProfile("/static/media/Profile_1.e607f6bcdd36d2f31fae912e7a1cb894.svg")
                 .build();
 
         memberRepository.save(newMember);
@@ -261,12 +261,10 @@ public class MemberService {
 
     // 관리자) 회원 전체 조회 ----------------------------------------------
 
-    // 회원 전체 보기
     public List<MemberEntity> getAllMembers() {
         return memberRepository.findAll(Sort.by(Sort.Direction.ASC, "memNum"));
     }
 
-    // 페이징 처리
     public Page<MemberEntity> getAllMembersPageable(Pageable pageable) {
         return memberRepository.findAll(pageable);
     }
